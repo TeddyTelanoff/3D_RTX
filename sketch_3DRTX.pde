@@ -43,7 +43,7 @@ void drawRays(PVector position, PVector direction, float maxDistance)
         new Ray
         (
           new PVector(x, y).sub(PVector.div(rayDimensions, 2)).add(position), 
-          new PVector(direction.x - map(x, 0, pixelWidth, -fov.x/2, fov.x/2), direction.y - map(x, 0, pixelHeight, -fov.y/2, fov.y/2), direction.z),
+          new PVector(direction.x + map(x, 0, pixelWidth, -fov.x/2, fov.x/2), direction.y + map(x, 0, pixelHeight, -fov.y/2, fov.y/2), direction.z),
           1, maxDistance, x, y
         );
       do
