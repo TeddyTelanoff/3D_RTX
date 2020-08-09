@@ -5,11 +5,14 @@ ArrayList<Shape> shapes;
 final PVector dimensions = new PVector(500, 400);
 final PVector rayDimensions = new PVector(dimensions.x, dimensions.y);
 final PVector fov = new PVector(120, 90);
+final float maxDistance = 250;
 
 final float speed = 6.9;
 final float rotationSpeed = 12.4;
 
 PVector position = new PVector(0, 0, 0), rotation = new PVector(-180, -180);
+
+Ray[] rays;
 
 void settings()
 {
@@ -29,7 +32,7 @@ void setup()
 
   background(57);
   loadPixels();
-  drawRays(position, rotation, 250);
+  drawRays(position, rotation, maxDistance);
   updatePixels();
 }
 
@@ -96,11 +99,11 @@ void rotate(PVector direction)
   updatePixels();
 }
 
-void drawRays(PVector position, PVector direction, float maxDistance)
+void drawRays(PVector position, PVector rotation, float maxDistance)
 {
-  Ray[] rays = new Ray[pixels.length];
+  rays = new Ray[pixels.length];
   
-  for (int y = 0; y < pixelHeight; y += pixelHeight / rayDimensions.y)
+  for (int y = 0; y < pixelHeight/2; y += pixelHeight / rayDimensions.y)
     for (int x = 0; x < pixelWidth; x += pixelWidth / rayDimensions.x)
     {
       //println("Drawing ray:", x, y);
@@ -111,8 +114,8 @@ void drawRays(PVector position, PVector direction, float maxDistance)
           //position,
           //PVector.div(rayDimensions, 2).add(position),
           new PVector(x, y).sub(PVector.div(rayDimensions, 2)).add(position), 
-          //new PVector(direction.x - map(x, 0, pixelWidth, -fov.x/2, fov.x/2), direction.y - map(x, 0, pixelHeight, -fov.y/2, fov.y/2)),
-          direction,
+          //new PVector(rotation.x - map(x, 0, pixelWidth, -fov.x/2, fov.x/2), rotation.y - map(x, 0, pixelHeight, -fov.y/2, fov.y/2)),
+          rotation,
           1, maxDistance, x, y
         );
       do
