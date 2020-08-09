@@ -17,9 +17,8 @@ class Ray
     this.angle =
       new PVector
       (
-      radians(angle.x), 
-      radians(angle.y), 
-      radians(angle.z)
+        radians(angle.x),
+        radians(angle.y)
       );
     this.step = step;
     this.maxDistance = maxDistance;
@@ -28,9 +27,9 @@ class Ray
 
     direction = new PVector
       (
-      sin(angle.x) * step, 
-      cos(angle.y) * step, 
-      sin(angle.z) * step
+        cos(angle.y) * cos(angle.x) * step,
+        cos(angle.y) * sin(angle.x) * step,
+        sin(angle.y)                * step
       );
   }
 
@@ -46,7 +45,7 @@ class Ray
 
   boolean alive()
   {
-    return !checkCollision() && (distance < maxDistance);
+    return !checkCollision() && distance < maxDistance;
   }
 
   boolean checkCollision()
