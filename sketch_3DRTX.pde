@@ -53,8 +53,7 @@ void setup()
     }
   };
 
-  background(57);
-  drawRays();
+  reDraw = true;
 }
 
 void draw()
@@ -102,6 +101,10 @@ void keyReleased()
       break;
     case VK_SHIFT:
       move(new PVector(0,  speed, 0));
+      break;
+    
+    case VK_R:
+      reDraw = true;
       break;
   }
 }

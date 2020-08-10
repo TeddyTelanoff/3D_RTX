@@ -37,7 +37,6 @@ void move(PVector direction)
   position.add(direction);
   
   reDraw = true;
-  drawRays();
 }
 
 void rotate(PVector direction)
@@ -45,7 +44,6 @@ void rotate(PVector direction)
   rotation.add(direction);
   
   reDraw = true;
-  drawRays();
 }
 
 void drawRay(int x, int y)
@@ -74,7 +72,7 @@ synchronized void pixels()
   loadPixels();
 }
 
-void setPixel(int index, color col)
+synchronized void setPixel(int index, color col)
 {
   pixels[index] = col;
 }
