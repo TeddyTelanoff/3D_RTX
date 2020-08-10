@@ -18,6 +18,7 @@ class DrawThread extends Thread
   
   public void run()
   {
+    pixels();
     if (yp)
       for (int y = ym; y < yM; y += height / rayDimensions.y)
       {
@@ -38,5 +39,6 @@ class DrawThread extends Thread
          for (int x = xm; x >= xM; x -= width / rayDimensions.x)
            drawRay(x, y);
       }
+    pixels();
   }
 }

@@ -18,6 +18,7 @@ Ray[] rays;
 void settings()
 {
   size((int) dimensions.x, (int) dimensions.y);
+  //fullScreen();
 }
 
 void setup()
