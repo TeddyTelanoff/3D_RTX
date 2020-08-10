@@ -2,9 +2,9 @@ class Box implements Shape
 {
   PVector position;
   PVector dimensions;
-  BoxShader shader;
+  Shader shader;
 
-  Box(PVector position, PVector dimensions, BoxShader shader)
+  Box(PVector position, PVector dimensions, Shader shader)
   {
     this.position = position;
     this.dimensions = dimensions;
@@ -16,14 +16,14 @@ class Box implements Shape
     return
       new CollisionInfo
       (
-      shader.getColor(PVector.sub(position, checkPosition), dimensions), 
-      (
-      (checkPosition.x >= position.x && checkPosition.x <= position.x + dimensions.x) // X
-      &&
-      (checkPosition.y >= position.y && checkPosition.y <= position.y + dimensions.y) // Y
-      &&
-      (checkPosition.z >= position.z && checkPosition.z <= position.z + dimensions.z) // Z
-      )
+        shader.getColor(PVector.sub(position, checkPosition), dimensions), 
+        (
+          (checkPosition.x >= position.x && checkPosition.x <= position.x + dimensions.x) // X
+            &&
+          (checkPosition.y >= position.y && checkPosition.y <= position.y + dimensions.y) // Y
+            &&
+          (checkPosition.z >= position.z && checkPosition.z <= position.z + dimensions.z) // Z
+        )
       );
   }
 }

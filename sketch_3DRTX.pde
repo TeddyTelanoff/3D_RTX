@@ -40,12 +40,12 @@ void setup()
       );
       add
       (
-        new Box(new PVector(-100, -69, 10), new PVector(250, 100, 50), new BoxShader()
+        new Ellipsoid(new PVector(-100, -69, 10), new PVector(250, 100, 50), new BoxShader()
         {{
-          front  = #FF0000;
-          back   = #00FF00;
-          left   = #FFAA00;
-          right  = #00AAFF;
+          front  = #00FF00;
+          back   = #FF0000;
+          left   = #AAFF00;
+          right  = #00FFAA;
           top    = #FFFFFF;
           bottom = #333333;
         }})
