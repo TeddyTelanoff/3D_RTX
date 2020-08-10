@@ -11,7 +11,7 @@ final float maxDistance = 250;
 final float speed = 6.9;
 final float rotationSpeed = 12.4;
 
-PVector position = new PVector(0, 0, 0), rotation = new PVector(-180, -180);
+PVector position = new PVector(10, 10, 0), rotation = new PVector(-180, -180);
 
 Ray[] rays;
 
@@ -26,8 +26,30 @@ void setup()
     new ArrayList<Shape>()
   {
     {
-      add(new Box(new PVector(10, 10, 100), new PVector(100, 100, 100), new BoxShader(#00FF00)));
-      add(new Box(new PVector(-100, -69, 10), new PVector(250, 100, 50), new BoxShader(#FF0000)));
+      add
+      (
+        new Box(new PVector(10, 10, 100), new PVector(100, 100, 100), new BoxShader()
+        {{
+          front  = #00FF00;
+          back   = #FF0000;
+          left   = #AAFF00;
+          right  = #00FFAA;
+          top    = #FFFFFF;
+          bottom = #333333;
+        }})
+      );
+      add
+      (
+        new Box(new PVector(-100, -69, 10), new PVector(250, 100, 50), new BoxShader()
+        {{
+          front  = #FF0000;
+          back   = #00FF00;
+          left   = #FFAA00;
+          right  = #00AAFF;
+          top    = #FFFFFF;
+          bottom = #333333;
+        }})
+     );
     }
   };
 

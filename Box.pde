@@ -32,6 +32,11 @@ class BoxShader implements Shader
 {
   color front, back, left, right, top, bottom;
 
+  BoxShader()
+  {
+    this(0);
+  }
+
   BoxShader(color col)
   {
     this(col, col, col, col, col, col);
@@ -49,9 +54,24 @@ class BoxShader implements Shader
 
   color getColor(PVector coord, PVector dimensions)
   {
-    if (round(coord.x) <= -5)
-      return #000000;
+    if (coord.z >= -1)
+      return front;
     
-    return front;
+    if (coord.z <= -dimensions.z + 1)
+      return back;
+    
+    if (coord.x >= -1)
+      return left;
+    
+    if (coord.x <= -dimensions.x + 1)
+      return right;
+    
+    if (coord.y >= -1)
+      return top;
+    
+    if (coord.y <= -dimensions.y + 1)
+      return bottom;
+      
+    return 0;
   }
 }

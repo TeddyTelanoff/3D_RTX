@@ -38,6 +38,5 @@ class DrawThread extends Thread
          for (int x = xm; x >= xM; x -= width / rayDimensions.x)
            drawRay(x, y);
       }
-    println("Finished Drawing Thread", getName() + "!");
   }
 }
