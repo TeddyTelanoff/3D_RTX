@@ -42,10 +42,10 @@ void setup()
       (
         new Ellipsoid(new PVector(-100, -69, 10), new PVector(250, 100, 50), new BoxShader()
         {{
-          front  = #00FF00;
-          back   = #FF0000;
-          left   = #AAFF00;
-          right  = #00FFAA;
+          front  = #FF0000;
+          back   = #0000FF;
+          left   = #FF00AA;
+          right  = #FFAA00;
           top    = #FFFFFF;
           bottom = #333333;
         }})
