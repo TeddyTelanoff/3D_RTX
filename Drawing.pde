@@ -16,10 +16,14 @@ void drawRays()
     threads =
       new DrawThread[]
       {
-        new DrawThread("1", 0, width, 0         , height/4  , true, true),
-        new DrawThread("2", 0, width, height/2  , height/4  , true, false),
-        new DrawThread("3", 0, width, height/2  , height/4*3, true, true),
-        new DrawThread("4", 0, width, height-1  , height/4*3, true, false)
+        new DrawThread("1", 0, width, 0           , height/8  , true, true),
+        new DrawThread("2", 0, width, height/4    , height/8  , true, false),
+        new DrawThread("3", 0, width, height/4-1  , height/8*3, true, true),
+        new DrawThread("4", 0, width, height/2    , height/8*3, true, false),
+        new DrawThread("5", 0, width, height/2-1  , height/8*5, true, true),
+        new DrawThread("6", 0, width, height/4*3-1, height/8*5, true, false),
+        new DrawThread("7", 0, width, height/4*3  , height/8*7, true, true),
+        new DrawThread("8", 0, width, height-1    , height/8*7, true, false)
       };
     for (DrawThread thread : threads)
       thread.start();
@@ -72,7 +76,5 @@ synchronized void pixels()
 
 void setPixel(int index, color col)
 {
-  //loadPixels();
   pixels[index] = col;
-  //updatePixels();
 }
