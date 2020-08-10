@@ -11,12 +11,12 @@ class Box implements Shape
     this.shader = shader;
   }
 
-  CollisionInfo checkCollision(PVector checkPosition, PVector direction)
+  CollisionInfo checkCollision(PVector checkPosition)
   {
     return
       new CollisionInfo
       (
-      shader.getColor(direction), 
+      shader.getColor(PVector.sub(position, checkPosition), dimensions), 
       (
       (checkPosition.x >= position.x && checkPosition.x <= position.x + dimensions.x) // X
       &&
@@ -47,29 +47,11 @@ class BoxShader implements Shader
     this.bottom = bottom;
   }
 
-  color getColor(PVector direction)
+  color getColor(PVector coord, PVector dimensions)
   {
-    final byte X = 0, Y = 1, Z = -1;
-    byte greatest = X;
-
-    if (direction.x > direction.y && direction.x > direction.z)
-      greatest = X;
-    if (direction.y > direction.x && direction.y > direction.z)
-      greatest = Y;
-    if (direction.z > direction.x && direction.z > direction.y)
-      greatest = Z;
-
-    switch(greatest)
-    {
-    case X:
-      return direction.x < 0 ? back : front;
-    case Y:
-      return direction.y < 0 ? left : right;
-    case Z:
-      return direction.z < 0 ? top : bottom;
-
-    default:
-      return front;
-    }
+    if (round(coord.x) <= -5)
+      return #000000;
+    
+    return front;
   }
 }

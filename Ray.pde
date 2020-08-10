@@ -32,15 +32,28 @@ class Ray
         sin(angle.y)                * step
       );
   }
+  
+  Ray(PVector position, PVector dir, float step, float maxDistance, int px, int py, Object dif)
+  {
+    this.position = position;
+    this.step = step;
+    this.maxDistance = maxDistance;
+    this.px = px;
+    this.py = py;
+
+    direction = dir;
+  }
 
   void update()
   {
     distance++;
     position.add(direction);
+    
+    //if (distance >= maxDistance)
+    //  setPixel(indexOf(px, py), 57);
+    
     if (checkCollision())
-    {
-      pixels[indexOf(px, py)] = hitColor;
-    }
+      setPixel(indexOf(px, py), hitColor);
   }
 
   boolean alive()
@@ -51,9 +64,9 @@ class Ray
   boolean checkCollision()
   {
     for (Shape shape : shapes)
-      if (shape.checkCollision(position, direction).hit)
+      if (shape.checkCollision(position).hit)
       {
-        hitColor = shape.checkCollision(position, direction).col;
+        hitColor = shape.checkCollision(position).col;
         return true;
       }
 

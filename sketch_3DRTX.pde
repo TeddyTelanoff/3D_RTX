@@ -2,9 +2,10 @@ import static java.awt.event.KeyEvent.*;
 
 ArrayList<Shape> shapes;
 
+final PVector light = new PVector();
 final PVector dimensions = new PVector(500, 400);
 final PVector rayDimensions = new PVector(dimensions.x, dimensions.y);
-final PVector fov = new PVector(120, 90);
+final PVector fov = new PVector(0.5, 0.5);
 final float maxDistance = 250;
 
 final float speed = 6.9;
@@ -31,14 +32,18 @@ void setup()
   };
 
   background(57);
-  loadPixels();
-  drawRays(position, rotation, maxDistance);
-  updatePixels();
+  drawRays();
 }
 
 void draw()
 {
   surface.setTitle("3D RayTracing - Treidex | FPS: " + frameRate);
+  
+  if (reDraw)
+  {
+    background(0x39);
+    drawRays();
+  }
 }
 
 void keyReleased()
@@ -79,58 +84,9 @@ void keyReleased()
   }
 }
 
-void move(PVector direction)
-{
-  position.add(direction);
-  
-  background(57);
-  loadPixels();
-  drawRays(position, rotation, 250);
-  updatePixels();
-}
-
-void rotate(PVector direction)
-{
-  rotation.add(direction);
-  
-  background(57);
-  loadPixels();
-  drawRays(position, rotation, 250);
-  updatePixels();
-}
-
-void drawRays(PVector position, PVector rotation, float maxDistance)
-{
-  rays = new Ray[pixels.length];
-  
-  for (int y = 0; y < pixelHeight/2; y += pixelHeight / rayDimensions.y)
-    for (int x = 0; x < pixelWidth; x += pixelWidth / rayDimensions.x)
-    {
-      //println("Drawing ray:", x, y);
-      
-      rays[indexOf(x, y)] =
-        new Ray
-        (
-          //position,
-          //PVector.div(rayDimensions, 2).add(position),
-          new PVector(x, y).sub(PVector.div(rayDimensions, 2)).add(position), 
-          //new PVector(rotation.x - map(x, 0, pixelWidth, -fov.x/2, fov.x/2), rotation.y - map(x, 0, pixelHeight, -fov.y/2, fov.y/2)),
-          rotation,
-          1, maxDistance, x, y
-        );
-      do
-      {
-        rays[indexOf(x, y)].update();
-      } 
-      while (rays[indexOf(x, y)].alive());
-      
-      //println("Finished ray:", x, y, rays[indexOf(x, y)].position);
-   }
-}
-
 int indexOf(int x, int y)
 {
-  if (x < 0 || x >= pixelWidth || y < 0 || y >= pixelHeight)
+  if (x < 0 || x >= width || y < 0 || y >= height)
     throw new IndexOutOfBoundsException("Cannot find pixel at Coordinates: " + x + ", " + y + "!");
 
   return x + (y * pixelWidth);
