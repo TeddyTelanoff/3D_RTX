@@ -2,7 +2,7 @@ import static java.awt.event.KeyEvent.*;
 
 ArrayList<Shape> shapes;
 
-final PVector dimensions = new PVector(500, 400);
+final PVector dimensions = new PVector(1000, 800);
 final PVector rayDimensions = new PVector(dimensions.x, dimensions.y);
 final PVector fov = new PVector(120, 90);
 final float maxDistance = 250;

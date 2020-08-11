@@ -35,7 +35,7 @@ class Ray
 
   void update()
   {
-    distance++;
+    distance += step;
     position.add(direction);
     if (checkCollision())
     {
