@@ -2,28 +2,28 @@ class Box implements Shape
 {
   PVector position;
   PVector dimensions;
-  BoxShader shader;
+  Shader shader;
 
-  Box(PVector position, PVector dimensions, BoxShader shader)
+  Box(PVector position, PVector dimensions, Shader shader)
   {
     this.position = position;
     this.dimensions = dimensions;
     this.shader = shader;
   }
 
-  CollisionInfo checkCollision(PVector checkPosition, PVector direction)
+  CollisionInfo checkCollision(PVector checkPosition)
   {
     return
       new CollisionInfo
       (
-      shader.getColor(direction), 
-      (
-      (checkPosition.x >= position.x && checkPosition.x <= position.x + dimensions.x) // X
-      &&
-      (checkPosition.y >= position.y && checkPosition.y <= position.y + dimensions.y) // Y
-      &&
-      (checkPosition.z >= position.z && checkPosition.z <= position.z + dimensions.z) // Z
-      )
+        shader.getColor(PVector.sub(position, checkPosition), dimensions), 
+        (
+          (checkPosition.x >= position.x && checkPosition.x <= position.x + dimensions.x) // X
+            &&
+          (checkPosition.y >= position.y && checkPosition.y <= position.y + dimensions.y) // Y
+            &&
+          (checkPosition.z >= position.z && checkPosition.z <= position.z + dimensions.z) // Z
+        )
       );
   }
 }
@@ -31,6 +31,11 @@ class Box implements Shape
 class BoxShader implements Shader
 {
   color front, back, left, right, top, bottom;
+
+  BoxShader()
+  {
+    this(0);
+  }
 
   BoxShader(color col)
   {
@@ -47,29 +52,26 @@ class BoxShader implements Shader
     this.bottom = bottom;
   }
 
-  color getColor(PVector direction)
+  color getColor(PVector coord, PVector dimensions)
   {
-    final byte X = 0, Y = 1, Z = -1;
-    byte greatest = X;
-
-    if (direction.x > direction.y && direction.x > direction.z)
-      greatest = X;
-    if (direction.y > direction.x && direction.y > direction.z)
-      greatest = Y;
-    if (direction.z > direction.x && direction.z > direction.y)
-      greatest = Z;
-
-    switch(greatest)
-    {
-    case X:
-      return direction.x < 0 ? back : front;
-    case Y:
-      return direction.y < 0 ? left : right;
-    case Z:
-      return direction.z < 0 ? top : bottom;
-
-    default:
+    if (coord.z >= -1)
       return front;
-    }
+    
+    if (coord.z <= -dimensions.z + 1)
+      return back;
+    
+    if (coord.x >= -1)
+      return left;
+    
+    if (coord.x <= -dimensions.x + 1)
+      return right;
+    
+    if (coord.y >= -1)
+      return top;
+    
+    if (coord.y <= -dimensions.y + 1)
+      return bottom;
+      
+    return 0;
   }
 }

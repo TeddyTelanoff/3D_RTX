@@ -1,9 +1,9 @@
 interface Shape
 {
-  CollisionInfo checkCollision(PVector checkPosition, PVector direction);
+  CollisionInfo checkCollision(PVector checkPosition);
 }
 
 interface Shader
 {
-  color getColor(PVector direction);
+  color getColor(PVector coord, PVector dimensions);
 }
